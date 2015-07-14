@@ -13,6 +13,8 @@ require 'miwiki/version'
 require 'miwiki/plugins/reporter'
 require 'miwiki/plugins/weather'
 require 'miwiki/plugins/otaku'
+require 'miwiki/plugins/lastfm'
+require 'miwiki/plugins/booru'
 
 class Numeric
   def relative_occurence
@@ -57,7 +59,7 @@ module Miwiki
     Cinch::Bot.new do
       configure do |config|
         config.server   = 'irc.rizon.net'
-        config.channels = ['#miwiki-test']#, '#cute']
+        config.channels = ['#miwiki-test', '#cute']
 
         config.nick     = 'Miwiki'
         config.user     = 'Miwiki'
@@ -69,7 +71,9 @@ module Miwiki
           Cinch::Plugins::Identify,
           Miwiki::Plugins::Reporter,
           Miwiki::Plugins::Weather,
-          Miwiki::Plugins::Otaku
+          Miwiki::Plugins::Otaku,
+          Miwiki::Plugins::LastFM,
+          Miwiki::Plugins::Booru
         ]
         
         config.plugins.options[Cinch::Plugins::Identify] = {

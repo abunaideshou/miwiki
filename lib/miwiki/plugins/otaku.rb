@@ -3,9 +3,29 @@ module Miwiki
     class Otaku
       include Cinch::Plugin
 
-      match /air(?:\s|$)(yesterday|today|tomorrow)?/i
+      match /air(?:\s|$)(yesterday|today|tomorrow)?/i , :method => :air
+      match /(anime|manga) (.+)/i                     , :method => :mal
 
-      def execute message, day
+      def mal message, type, query
+        @authed_agent ||= Mechanize.new do |agent|
+          agent.auth 'rallizes', '**REMOVED**'
+        end
+
+        url = "http://myanimelist.net/api/#{ type }/search.xml?q=#{ CGI.escape query }"
+
+        entry = @authed_agent.get(url).at type
+
+        title    = entry.at('title').text
+        synopsis = entry.at('synopsis').text.split('<br />').first.truncate 280
+        kind     = entry.at('type').text
+        status   = entry.at('status').text
+        year     = entry.at('start_date').text.split('-').first
+        id       = entry.at('id').text
+
+        message.reply "#{ title } (#{ kind }, #{ year }, #{ status.downcase }): #{ synopsis } http://myanimelist.net/#{ type }/#{ id }"
+      end
+
+      def air message, day
         day ||= 'today'
 
         date =
