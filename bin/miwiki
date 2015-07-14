@@ -2,5 +2,5 @@
 
 require 'miwiki'
 
-puts 'Running...'
+Miwiki::configure_with '../config.yml'
 Miwiki::start

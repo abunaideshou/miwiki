@@ -15,14 +15,16 @@ module Miwiki
 
         entry = @authed_agent.get(url).at type
 
+        synopsis = HTMLEntities.new.decode(entry.at('synopsis').text)
+        synopsis = synopsis.split('<br />').first.truncate 280
         title    = entry.at('title').text
-        synopsis = entry.at('synopsis').text.split('<br />').first.truncate 280
         kind     = entry.at('type').text
-        status   = entry.at('status').text
+        status   = entry.at('status').text.downcase
         year     = entry.at('start_date').text.split('-').first
         id       = entry.at('id').text
+        url      = "http://myanimelist.net/#{ type }/#{ id }"
 
-        message.reply "#{ title } (#{ kind }, #{ year }, #{ status.downcase }): #{ synopsis } http://myanimelist.net/#{ type }/#{ id }"
+        message.reply "#{ title } (#{ kind }, #{ year }, #{ status }): #{ synopsis } #{ url }"
       end
 
       def air message, day

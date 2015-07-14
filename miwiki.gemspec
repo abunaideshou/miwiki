@@ -32,4 +32,5 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency 'mechanize'
   spec.add_runtime_dependency 'filesize'
+  spec.add_runtime_dependency 'htmlentities'
 end
