@@ -52,8 +52,12 @@ module Miwiki
         else
           content_type = page.response['content-type']
           filesize     = Filesize.from("#{ page.response['content-length'] } B").pretty
+          filename     = page.response['content-disposition'][/"(.*)"/, 1] rescue nil
 
-          message.reply "#{ content_type }, #{ filesize }"
+          response = "#{ content_type }, #{ filesize }"
+          response = "#{ filename } " + response if filename
+
+          message.reply response
 
         end
       end
