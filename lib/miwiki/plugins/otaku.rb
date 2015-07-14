@@ -8,7 +8,7 @@ module Miwiki
 
       def mal message, type, query
         @authed_agent ||= Mechanize.new do |agent|
-          agent.auth 'rallizes', '**REMOVED**'
+          agent.auth config[:user], config[:password]
         end
 
         url = "http://myanimelist.net/api/#{ type }/search.xml?q=#{ CGI.escape query }"

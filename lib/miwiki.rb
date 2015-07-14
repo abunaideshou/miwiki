@@ -1,58 +1,22 @@
 require 'cinch'
 require 'cinch/plugins/identify'
-
+require 'filesize'
 require 'mechanize'
 
 $mechanize_agent = Mechanize.new do |agent|
   agent.user_agent_alias = 'Mac Safari'
 end
 
-require 'filesize'
+require 'patches'
 
 require 'miwiki/version'
-require 'miwiki/plugins/reporter'
+require 'miwiki/plugins/inspector'
 require 'miwiki/plugins/weather'
 require 'miwiki/plugins/otaku'
 require 'miwiki/plugins/lastfm'
 require 'miwiki/plugins/booru'
-
-class Numeric
-  def relative_occurence
-    ago = self > 0
-    
-    secs  = self.to_int.abs
-    mins  = secs / 60
-    hours = mins / 60
-    days  = hours / 24
-
-    duration =
-      if days > 0
-        "#{days} days, #{hours % 24} hours"
-      elsif hours > 0
-        "#{hours} hours, #{mins % 60} minutes"
-      elsif mins > 0
-        "#{mins} minutes"
-      elsif secs >= 0
-        "#{secs} seconds"
-      end
-
-    if ago
-      "#{ duration } ago"
-    else
-      "in #{ duration }"
-    end
-  end
-end
-
-class String
-  def truncate max_length=140
-    if length > max_length
-      self[0..(max_length - 3)] + '...'
-    else
-      dup
-    end
-  end
-end
+require 'miwiki/plugins/rym'
+require 'miwiki/plugins/youtube'
 
 module Miwiki
   def self.start
@@ -69,16 +33,28 @@ module Miwiki
 
         config.plugins.plugins = [
           Cinch::Plugins::Identify,
-          Miwiki::Plugins::Reporter,
+          Miwiki::Plugins::Inspector,
           Miwiki::Plugins::Weather,
           Miwiki::Plugins::Otaku,
           Miwiki::Plugins::LastFM,
-          Miwiki::Plugins::Booru
+          Miwiki::Plugins::Booru,
+          Miwiki::Plugins::RYM,
+          Miwiki::Plugins::YouTube
         ]
         
         config.plugins.options[Cinch::Plugins::Identify] = {
           :type     => :nickserv,
           :password => '**REMOVED**'
+        }
+
+        config.plugins.options[Cinch::Plugins::Otaku] = {
+          :user     => 'rallizes',
+          :password => '**REMOVED**'
+        }
+
+        config.plugins.options[Cinch::Plugins::Booru] = {
+          :login   => 'miwiki-bot',
+          :api_key => 'e9VwzTgtJ_7YRSaxNvjTPanwG18zn_fK_oJqiIX_tfE'
         }
       end
     end.start

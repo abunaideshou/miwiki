@@ -1,6 +1,6 @@
 module Miwiki
   module Plugins
-    class Reporter
+    class Inspector
       include Cinch::Plugin
 
       match %r{(https?:\/\/.*?)(?:\s|$|,|\.\s|\.$)}i, :use_prefix => false
@@ -55,7 +55,7 @@ module Miwiki
           filename     = page.response['content-disposition'][/"(.*)"/, 1] rescue nil
 
           response = "#{ content_type }, #{ filesize }"
-          response = "#{ filename } " + response if filename
+          response = "#{ filename } (#{ response })" if filename
 
           message.reply response
 

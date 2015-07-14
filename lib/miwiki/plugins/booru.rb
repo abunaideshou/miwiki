@@ -6,7 +6,7 @@ module Miwiki
       match /booru (.+)/
 
       def execute message, tags
-        url  = "http://safebooru.donmai.us/posts/random?login=miwiki-bot&api_key=e9VwzTgtJ_7YRSaxNvjTPanwG18zn_fK_oJqiIX_tfE&tags=#{ CGI.escape tags }"
+        url  = "http://safebooru.donmai.us/posts/random?login=#{ config[:login] }&api_key=#{ config[:api_key] }&tags=#{ CGI.escape tags }"
         page = $mechanize_agent.get url
 
         image_path = page.at('#image-container').attributes['data-file-url'].value
