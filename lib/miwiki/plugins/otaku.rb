@@ -6,6 +6,8 @@ module Miwiki
       match /air(?:\s|$)(yesterday|today|tomorrow)?/i , :method => :air
       match /(anime|manga) (.+)/i                     , :method => :mal
 
+      match /jp/i, :method => :jp
+
       def mal message, type, query
         @authed_agent ||= Mechanize.new do |agent|
           agent.auth config[:user], config[:password]
@@ -15,7 +17,7 @@ module Miwiki
 
         entry = @authed_agent.get(url).at type
 
-        synopsis = HTMLEntities.new.decode(entry.at('synopsis').text)
+        synopsis = HTMLEntities.new.decode entry.at('synopsis').text
         synopsis = synopsis.split('<br />').first.truncate 280
         title    = entry.at('title').text
         kind     = entry.at('type').text
@@ -27,20 +29,27 @@ module Miwiki
         message.reply "#{ title } (#{ kind }, #{ year }, #{ status }): #{ synopsis } #{ url }"
       end
 
+      def jp message
+        time = Time.now.getlocal('+09:00').strftime('%a%l:%M %p')
+        message.reply "Time in Tokyo: #{ time }"
+      end
+
+      ONE_DAY = 60 * 60 * 24
+
       def air message, day
         day ||= 'today'
 
-        date =
+        local_time =
           case day
           when 'yesterday'
-            Date.today - 1
+            Time.now - ONE_DAY
           when 'today'
-            Date.today
+            Time.now
           when 'tomorrow'
-            Date.today + 1
-          end
+            Time.now + ONE_DAY
+          end.getlocal '+09:00'
 
-        url  = "http://animecalendar.net/#{ date.year }/#{ date.month }/#{ date.day }"
+        url  = "http://animecalendar.net/#{ local_time.year }/#{ local_time.month }/#{ local_time.day }"
         page = $mechanize_agent.get url
 
         schedule = page.at('#calendarDay').search('table[align="center"] > tr')[2..-1]
@@ -52,7 +61,7 @@ module Miwiki
           "#{ show } (#{ time })"
         end
 
-        response  = "#{ day.capitalize }'s schedule: "
+        response  = "#{ local_time.strftime '%A' }'s schedule (JST):"
         response += show_details.join ', '
 
         message.reply response

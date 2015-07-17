@@ -19,7 +19,7 @@ module Miwiki
           artist = page.at('a.artist').text.strip
           genres = page.search('.genre').map { |n| n.text.strip }.take 3
 
-          message.reply "#{ artist } - #{ name } (#{ year }). #{ genres.join ', ' }. #{ page.uri }"
+          message.reply "#{ artist } – #{ name } (#{ year }). #{ genres.join ', ' }. #{ page.uri }"
 
         elsif url =~ /rateyourmusic.com\/artist\//i
           name   = page.at('.artist_name_hdr').text

@@ -27,6 +27,10 @@ class Numeric
 end
 
 class String
+  def uncapitalize 
+    self[0, 1].downcase + self[1..-1]
+  end
+
   def truncate max_length=140
     if length > max_length
       self[0..(max_length - 3)] + '...'

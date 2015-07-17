@@ -2,5 +2,5 @@
 
 require 'miwiki'
 
-Miwiki::configure_with '../config.yml'
+Miwiki::configure_with 'config.yml'
 Miwiki::start
