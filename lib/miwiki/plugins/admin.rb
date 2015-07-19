@@ -14,7 +14,7 @@ module Miwiki
       end
 
       def restart message, name
-        Kernel.exec 'miwiki' if is_me?(name) && should_obey?(message)
+        Kernel.exec 'rake install && miwiki' if is_me?(name) && should_obey?(message)
       end
 
       private

@@ -24,7 +24,8 @@ module Miwiki
         temperature = format_temps weather['temp_f'], weather['temp_c']
         wind        = "Wind #{ weather['wind_string'].uncapitalize }"
         humidity    = "Humidity: #{ weather['relative_humidity'] }"
-        icon        = get_icon weather['icon']
+        local_time  = Time.at(weather['observation_epoch'].to_i).localtime weather['local_tz_offset'].insert(3, ':')
+        icon        = get_icon(weather['icon'], local_time.hour > 19 || local_time.hour < 6)
 
         response =
           "#{ location }: #{ condition } #{ icon }, #{ temperature }. #{ wind }. #{ humidity }."
@@ -75,12 +76,16 @@ module Miwiki
         "#{ fahrenheit }˚F/#{ celsius }˚C"
       end
 
-      def get_icon name
+      def get_icon name, night=false
         name.gsub! /^chance/, ''
 
         case name
         when 'clear', 'mostlysunny', 'sunny'
-          '☀️ '
+          if night
+            '🌙 '
+          else
+            '☀️ '
+          end
         when 'cloudy', 'fog', 'hazy', 'mostlycloudy'
           '☁️ '
         when 'flurries'
