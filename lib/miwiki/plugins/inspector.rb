@@ -45,7 +45,7 @@ module Miwiki
             message.reply response
 
           else
-            message.reply page.title
+            message.reply page.title.strip
 
           end
 
