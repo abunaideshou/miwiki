@@ -61,7 +61,7 @@ module Miwiki
           "#{ show } (#{ time })"
         end
 
-        response  = "#{ local_time.strftime '%A' }'s schedule (JST):"
+        response  = "#{ local_time.strftime '%A' }'s schedule (JST): "
         response += show_details.join ', '
 
         message.reply response
