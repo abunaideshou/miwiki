@@ -8,6 +8,7 @@ module Miwiki
     :cinch => {
       :server   => 'irc.rizon.net',
       :port     => 6667,
+      :password => nil,
       :channels => [],
       :nick     => 'Miwiki',
       :user     => 'Miwiki',

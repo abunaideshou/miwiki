@@ -39,6 +39,7 @@ module Miwiki
       configure do |config|
         config.server   = cinch_config['server']
         config.port     = cinch_config['port']
+        config.password = cinch_config['password']
         config.channels = cinch_config['channels']
 
         config.nick     = cinch_config['nick']
