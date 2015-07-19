@@ -7,6 +7,7 @@ module Miwiki
   @config = {
     :cinch => {
       :server   => 'irc.rizon.net',
+      :port     => '6667',
       :channels => [],
       :nick     => 'Miwiki',
       :user     => 'Miwiki',

@@ -38,6 +38,7 @@ module Miwiki
     bot = Cinch::Bot.new do
       configure do |config|
         config.server   = cinch_config['server']
+        config.port     = cinch_config['port']
         config.channels = cinch_config['channels']
 
         config.nick     = cinch_config['nick']
