@@ -36,7 +36,7 @@ module Miwiki
               end
 
             preview = page.at(preview_selector).text || ''
-            preview = preview.strip.gsub(/\n/, ' ').truncate
+            preview = preview.strip.gsub("\n", ' ').truncate
             
             response = board
             response += " - #{ title }"   unless title.empty?
