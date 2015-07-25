@@ -13,10 +13,10 @@ module Miwiki
 
           if check_youtube(url)
             title = page.at('#eow-title').text || ''
-            title = title.gsub(/\n/, ' ').strip.truncate
+            title = title.gsub("\n", ' ').strip.truncate
 
             preview = page.at('#eow-description').text || ''
-            preview = preview.gsub(/\n/, ' ').strip.truncate
+            preview = preview.gsub("\n", ' ').strip.truncate
 
             response = title
             response += " (#{ preview })" unless preview.empty?
