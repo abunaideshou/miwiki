@@ -30,7 +30,7 @@ module Miwiki
       end
 
       def jp message
-        time = Time.now.getlocal('+09:00').strftime('%a %l:%M %p')
+        time = Time.now.getlocal('+09:00').strftime('%a %-l:%M %p')
         message.reply "Time in Tokyo: #{ time }"
       end
 
