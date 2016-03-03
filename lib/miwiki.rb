@@ -6,6 +6,8 @@ require 'cinch/plugins/identify'
 require 'filesize'
 require 'mechanize'
 require 'htmlentities'
+require 'geocoder'
+require 'ruby-units'
 
 # Static Mechanize agent to handle most of our web lookups
 $mechanize_agent = Mechanize.new do |agent|
@@ -69,7 +71,7 @@ module Miwiki
         }
 
         config.plugins.options[Miwiki::Plugins::Weather] = {
-          :api_key => plugins_config['weather']['wunderground_api_key']
+          :api_key => plugins_config['weather']['openweathermap_api_key']
         }
 
         config.plugins.options[Miwiki::Plugins::Otaku] = {

@@ -29,4 +29,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'mechanize'
   spec.add_runtime_dependency 'filesize'
   spec.add_runtime_dependency 'htmlentities'
+
+  spec.add_runtime_dependency 'geocoder'
+  spec.add_runtime_dependency 'ruby-units'
 end

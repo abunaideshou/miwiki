@@ -28,7 +28,7 @@ module Miwiki
             board       = match_data[1]
             post_number = url.match(/#p(\d+)/)[1] rescue nil
 
-            preview_selector = 
+            preview_selector =
               if post_number
                 ".postMessage#m#{ post_number }"
               else

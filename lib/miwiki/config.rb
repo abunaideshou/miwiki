@@ -19,7 +19,7 @@ module Miwiki
         :nickserv_password => 'abcd1234'
       },
       :weather => {
-        wunderground_api_key: 'abcd1234'
+        openweathermap_api_key: 'abcd1234'
       },
       :otaku => {
         :mal_user     => 'animefan420',
