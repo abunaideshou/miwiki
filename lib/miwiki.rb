@@ -27,7 +27,6 @@ require 'miwiki/plugins/lastfm'
 require 'miwiki/plugins/booru'
 require 'miwiki/plugins/rym'
 require 'miwiki/plugins/youtube'
-require 'miwiki/plugins/google'
 require 'miwiki/plugins/admin'
 require 'miwiki/plugins/nyaa'
 require 'miwiki/plugins/github'
@@ -59,7 +58,6 @@ module Miwiki
           Miwiki::Plugins::Booru,
           Miwiki::Plugins::RYM,
           Miwiki::Plugins::YouTube,
-          Miwiki::Plugins::Google,
           Miwiki::Plugins::Admin,
           Miwiki::Plugins::Nyaa,
           Miwiki::Plugins::GitHub
