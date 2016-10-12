@@ -10,7 +10,7 @@ module Miwiki
         page = $mechanize_agent.get url
 
         link = page.at '.tlistname a'
-        href = link.attributes['href'].value
+        href = "https:#{ link.attributes['href'].value }"
         name = link.text.strip
 
         message.reply "#{ name } #{ href }"

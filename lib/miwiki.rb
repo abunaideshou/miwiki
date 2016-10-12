@@ -20,16 +20,14 @@ require 'patches'
 require 'miwiki/version'
 require 'miwiki/config'
 
-require 'miwiki/plugins/inspector'
-require 'miwiki/plugins/weather'
-require 'miwiki/plugins/otaku'
-require 'miwiki/plugins/lastfm'
-require 'miwiki/plugins/booru'
-require 'miwiki/plugins/rym'
-require 'miwiki/plugins/youtube'
 require 'miwiki/plugins/admin'
-require 'miwiki/plugins/nyaa'
+require 'miwiki/plugins/booru'
 require 'miwiki/plugins/github'
+require 'miwiki/plugins/inspector'
+require 'miwiki/plugins/lastfm'
+require 'miwiki/plugins/nyaa'
+require 'miwiki/plugins/otaku'
+require 'miwiki/plugins/weather'
 
 module Miwiki
   def self.start
@@ -51,16 +49,14 @@ module Miwiki
 
         config.plugins.plugins = [
           Cinch::Plugins::Identify,
-          Miwiki::Plugins::Inspector,
-          Miwiki::Plugins::Weather,
-          Miwiki::Plugins::Otaku,
-          Miwiki::Plugins::LastFM,
-          Miwiki::Plugins::Booru,
-          Miwiki::Plugins::RYM,
-          Miwiki::Plugins::YouTube,
           Miwiki::Plugins::Admin,
+          Miwiki::Plugins::Booru,
+          Miwiki::Plugins::GitHub,
+          Miwiki::Plugins::Inspector,
+          Miwiki::Plugins::LastFM,
           Miwiki::Plugins::Nyaa,
-          Miwiki::Plugins::GitHub
+          Miwiki::Plugins::Otaku,
+          Miwiki::Plugins::Weather
         ]
         
         config.plugins.options[Cinch::Plugins::Identify] = {
@@ -80,6 +76,10 @@ module Miwiki
         config.plugins.options[Miwiki::Plugins::Booru] = {
           :login   => plugins_config['booru']['safebooru_user'],
           :api_key => plugins_config['booru']['safebooru_api_key']
+        }
+
+        config.plugins.options[Miwiki::Plugins::Admin] = {
+          :install_dir => plugins_config['admin']['install_dir']
         }
       end
     end.start

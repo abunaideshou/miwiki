@@ -14,7 +14,9 @@ module Miwiki
       end
 
       def restart message, name
-        Kernel.exec 'cd ~/miwiki/ && git pull && rake install && miwiki' if is_me?(name) && should_obey?(message)
+        if is_me?(name) && should_obey?(message)
+          Kernel.exec "cd #{ config[:install_dir] } && git pull && rake install && miwiki"
+        end
       end
 
       private

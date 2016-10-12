@@ -28,6 +28,9 @@ module Miwiki
       :booru => {
         :safebooru_user    => 'animefan420',
         :safebooru_api_key => 'abcd1234'
+      },
+      :admin => {
+        :install_dir => '~/Miwiki'
       }
     }
   }

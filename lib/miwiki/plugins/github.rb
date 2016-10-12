@@ -6,7 +6,7 @@ module Miwiki
       match /github (.+)/i
 
       def execute message, query
-        url  = "https://github.com/search?utf8=%E2%9C%93&q=#{ CGI.escape query}"
+        url  = "https://github.com/search?utf8=%E2%9C%93&q=#{ CGI.escape query }"
         page = $mechanize_agent.get url
 
         link = page.at '.repo-list-name a'
